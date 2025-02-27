@@ -27,18 +27,16 @@ export const sendEmail = async ({ email, emailType, userId }: { email: string, e
             }
         });
 
-        const info = await transport.sendMail({
+        const mailResponse = await transport.sendMail({
             from: 'pushpraj@crownstack.com', // sender address
             to: email, // list of receivers
             subject: emailType === 'VERIFY' ? 'Verify you email' : 'Reset your password', // Subject line
             text: "Hello world?", // plain text body
-            html: `<p>Click <a href="${process.env.DOMAIL_URL}}/verifyemail?token=${hashedToken}">here</a> to ${emailType === 'VERIFY' ? 'verify your email address' : 'reset your account password'}
-            or copy and paste the below link in your browser. <br> ${process.env.DOMAIL_URL}}/verifyemail?token=${hashedToken} </br> </p>`,
+            html: `<p>Click <a href="${process.env.DOMAIL_URL}/verifyemail?token=${hashedToken}">here</a> to ${emailType === 'VERIFY' ? 'verify your email address' : 'reset your account password'}
+            or copy and paste the below link in your browser. <br> ${process.env.DOMAIL_URL}/verifyemail?token=${hashedToken} </br> </p>`,
         });
+        return mailResponse;
 
-        console.log("Message sent: %s", info.messageId);
-
-        return info;
     } catch (error) {
         console.log(error)
     }
