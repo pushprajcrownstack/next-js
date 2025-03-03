@@ -22,8 +22,10 @@ export async function GET(request: NextRequest) {
         user.refreshToken = ''
         await user.save();
         const response = NextResponse.json({ message: 'User logged out successfully', success: true }, { status: 200 })
-
-        response.cookies.delete('token');
+        response.cookies.set('token', '', {
+            httpOnly: true,
+            expires: new Date(0)
+        })
         console.log('cookies!!', response.cookies);
 
         return NextResponse.json({ message: 'User logged out successfully', success: true }, { status: 200 })

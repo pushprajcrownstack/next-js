@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="font-sans">
+    <main>
       <Header />
       {children}
     </ main>

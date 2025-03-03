@@ -65,9 +65,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={workSans.variable}>
+    <html lang="en" className="h-full bg-white">
       <body
-        className={`antialiased`}
+        className="h-full"
       >
         {children}
       </body>
