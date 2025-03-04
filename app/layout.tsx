@@ -3,7 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const workSans = localFont({
+export const workSans = localFont({
   src: [
     {
       path: "./fonts/WorkSans-Black.ttf",
@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full bg-white">
+    <html lang="en" className="h-full bg-gray-50">
       <body
         className="h-full"
       >

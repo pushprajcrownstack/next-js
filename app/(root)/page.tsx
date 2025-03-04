@@ -1,21 +1,9 @@
 import React from "react";
 // import { SearchForm } from "../../components/SearchForm";
 // import StartupCardType from "../../components/StartupCardType";
-import Login from "../../components/Login";
+import Login from "../pages/login/page";
 
-async function Home({ searchParams }: { searchParams: Promise<{ query?: string }> }) {
-  const query = (await searchParams).query;
-
-  const posts = [{
-    _createdAt: new Date(),
-    views: 55,
-    author: { _id: 1, name: 'Adrian' },
-    _id: 1,
-    description: 'This is a description.',
-    image: 'https://www.shutterstock.com/image-photo/robotics-industry-four-engineering-facility-robot-2188603547',
-    category: 'Robots',
-    title: 'We Robots'
-  }];
+async function Home({ }: { searchParams: Promise<{ query?: string }> }) {
 
   return (
     <>

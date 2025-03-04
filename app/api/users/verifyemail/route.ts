@@ -1,5 +1,4 @@
 import User from "@/models/userModel";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
