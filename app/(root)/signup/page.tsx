@@ -2,6 +2,7 @@
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -13,12 +14,14 @@ export type Inputs = {
 }
 
 function SignUp() {
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({ mode: 'onTouched' });
+    const router = useRouter()
+    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<Inputs>({ mode: 'onTouched' });
 
     const submitForm: SubmitHandler<Inputs> = async data => {
         delete data?.confimPassword;
         const respose = await axios.post('/api/users/signup', data);
         console.log('respose', respose);
+        router.push('/login')
     }
     return (
         <>
@@ -157,6 +160,7 @@ function SignUp() {
                             <div>
                                 <button
                                     type="submit"
+                                    disabled={!isDirty || !isValid}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Sign up
@@ -168,7 +172,7 @@ function SignUp() {
                             <span className="px-2 bg-white text-gray-500">
                                 Already have an account?{" "}
                                 <span className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    <Link href="/pages/login">Login</Link>
+                                    <Link href="/login">Login</Link>
                                 </span>
                             </span>
                         </div>

@@ -1,7 +1,5 @@
 import Form from 'next/form'
 import SearchFormReset from './SearchFormReset'
-import Link from 'next/link'
-import { ChangeEvent } from 'react'
 import { Search } from 'lucide-react'
 
 export const SearchForm = ({ query }: { query: string }) => {

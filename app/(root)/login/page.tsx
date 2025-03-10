@@ -5,15 +5,24 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Inputs } from '../signup/page';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function Login() {
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({ mode: 'onTouched' });
 
     const submitForm: SubmitHandler<Inputs> = async data => {
-        delete data?.confimPassword;
-        delete data?.username;
-        const respose = await axios.post('/api/users/login', data);
-        console.log('respose', respose);
+        try {
+            delete data?.confimPassword;
+            delete data?.username;
+            const response = await axios.post('/api/users/login', data);
+            localStorage.setItem('token', response.data.data.accessToken);
+            router.push('/dashboard')
+        } catch (error) {
+            console.log('error', error);
+        }
+
     }
     return (
         <>
@@ -130,7 +139,7 @@ function Login() {
                             <span className="px-2 bg-white text-gray-500">
                                 {`Don't have an account?`}
                                 <span className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    <Link href="/pages/signup">Sign Up</Link>
+                                    <Link href="/signup">Sign Up</Link>
                                 </span>
                             </span>
                         </div>
@@ -182,6 +191,13 @@ function Login() {
                                             fillRule="evenodd"
                                         />
                                     </svg>
+                                    <form
+                                        action={async () => {
+                                            await signIn()
+                                        }}
+                                    >
+                                        <button type="submit">GitHub</button>
+                                    </form>
                                     <span className="text-sm/6 font-semibold">GitHub</span>
                                 </a>
                             </div>

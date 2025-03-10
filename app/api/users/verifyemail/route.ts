@@ -13,9 +13,9 @@ export async function POST(request: NextRequest) {
         user.verifyToken = undefined;
         user.verifyTokenExpiry = undefined;
 
-        await user.save();
-        return NextResponse.json({ message: 'Email verified successfully', success: true }, { status: 200 })
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message, success: true }, { status: 500 })
+        const updatedUser = await user.save()
+        return NextResponse.json({ message: 'Email verified successfully', success: true, data: updatedUser }, { status: 200 })
+    } catch (error: unknown) {
+        return NextResponse.json({ error: error, success: true }, { status: 500 })
     }
 }
